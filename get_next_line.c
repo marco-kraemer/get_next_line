@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:19 by maraurel          #+#    #+#             */
-/*   Updated: 2021/02/19 19:51:55 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/02/22 15:10:56 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,22 @@ int		get_next_line(int fd, char **line)
 	if (!(buf = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	i = 1;
-	while ((i = read(fd, buf, BUFFER_SIZE)) > 0)
+	if (saved == NULL)
+		saved = ft_strdup(buf);
+	while (!(ft_strchr(saved, '\n')) && i != 0)
 	{
-		if (i == -1)
+		if ((i = read(fd, buf, BUFFER_SIZE)) == -1)
 		{
 			free(buf);
 			return (-1);
 		}
 		buf[i] = '\0';
-		if (saved == NULL)
-			saved = ft_strdup(buf);
-		else
-			saved = ft_strjoin(saved, buf);
-		if (ft_strchr(saved, '\n'))
-			break ;
+		saved = ft_strjoin(saved, buf);
 	}
 	free(buf);
 	*line = save_line(saved);
 	saved = new_saved(saved, *line);
-	if (i == 0 && ft_strlen(saved) == 0)
-	{
+	if (i == 0)
 		return (0);
-	}
 	return (1);
 }
