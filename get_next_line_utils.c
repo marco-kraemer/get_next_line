@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:41 by maraurel          #+#    #+#             */
-/*   Updated: 2021/02/22 15:18:22 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/03/01 15:43:12 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	p[ft_strlen(s1) + i] = '\0';
+	free((char *)s1);
 	return (p);
 }
 
