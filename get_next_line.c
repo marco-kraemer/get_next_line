@@ -6,25 +6,27 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:19 by maraurel          #+#    #+#             */
-/*   Updated: 2021/02/22 15:59:09 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/03/02 09:36:37 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*save_line(char *saved)
+void	save_line(char *saved, char *line)
 {
 	int		i;
-	char	*tmp;
+	int		j;
 
 	i = 0;
-	if (!saved)
-		return (0);
+	j = 0;
 	while (saved[i] && saved[i] != '\n')
 		i++;
-	tmp = ft_substr(saved, 0, i);
-	tmp[i] = '\0';
-	return (tmp);
+	while (j < i)
+	{
+		line[j] = saved[j];
+		j++;
+	}
+	line[j] = '\0';
 }
 
 char	*new_saved(char *saved, char *line)
@@ -75,7 +77,7 @@ int		get_next_line(int fd, char **line)
 		saved = ft_strjoin(saved, buf);
 	}
 	free(buf);
-	*line = save_line(saved);
+	save_line(saved, *line);
 	saved = new_saved(saved, *line);
 	if (i == 0)
 		return (0);
