@@ -6,38 +6,40 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:19 by maraurel          #+#    #+#             */
-/*   Updated: 2021/03/02 10:04:00 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/03/02 16:16:40 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		save_line(char *saved, char *line)
+char	*save_line(char *saved)
 {
 	int		i;
+	char	*tmp;
 
 	i = 0;
-	while (saved[i] != '\n')
-	{
-		line[i] = saved[i];
+	if (!saved)
+		return (0);
+	while (saved[i] && saved[i] != '\n')
 		i++;
-	}
-	line[i] = '\0';
-	return (1);
+	tmp = ft_substr(saved, 0, i);
+	return (tmp);
 }
 
 char	*new_saved(char *saved, char *line)
 {
 	char	*tmp;
+	char	*l;
 	int		i;
 	int		j;
 	int		k;
 
 	i = 0;
 	k = 0;
-	if (!(saved))
+	if (!(saved || line))
 		return (0);
-	while (line[k])
+	l = line;
+	while (l[k])
 		k++;
 	while (saved[i] && saved[i] != '\n')
 		i++;
@@ -72,7 +74,7 @@ int		get_next_line(int fd, char **line)
 		saved = ft_strjoin(saved, buf);
 	}
 	free(buf);
-	save_line(saved, *line);
+	*line = save_line(saved);
 	saved = new_saved(saved, *line);
 	if (i == 0)
 		return (0);
