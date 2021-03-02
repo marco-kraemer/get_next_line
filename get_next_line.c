@@ -6,43 +6,38 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:19 by maraurel          #+#    #+#             */
-/*   Updated: 2021/03/02 09:36:37 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/03/02 10:04:00 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	save_line(char *saved, char *line)
+int		save_line(char *saved, char *line)
 {
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	while (saved[i] && saved[i] != '\n')
-		i++;
-	while (j < i)
+	while (saved[i] != '\n')
 	{
-		line[j] = saved[j];
-		j++;
+		line[i] = saved[i];
+		i++;
 	}
-	line[j] = '\0';
+	line[i] = '\0';
+	return (1);
 }
 
 char	*new_saved(char *saved, char *line)
 {
 	char	*tmp;
-	char	*l;
 	int		i;
 	int		j;
 	int		k;
 
 	i = 0;
 	k = 0;
-	if (!(saved || line))
+	if (!(saved))
 		return (0);
-	l = line;
-	while (l[k])
+	while (line[k])
 		k++;
 	while (saved[i] && saved[i] != '\n')
 		i++;
