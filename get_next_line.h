@@ -6,16 +6,14 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:13:11 by maraurel          #+#    #+#             */
-/*   Updated: 2021/03/03 11:03:27 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/03/03 11:46:29 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdio.h>
 # include <unistd.h>
-# include <string.h>
 # include <stdlib.h>
 
 int		get_next_line(int fd, char **line);
