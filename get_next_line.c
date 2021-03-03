@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:19 by maraurel          #+#    #+#             */
-/*   Updated: 2021/03/02 16:16:40 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/03/03 08:51:26 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,27 @@ char	*save_line(char *saved)
 char	*new_saved(char *saved, char *line)
 {
 	char	*tmp;
-	char	*l;
 	int		i;
-	int		j;
 	int		k;
 
 	i = 0;
 	k = 0;
-	if (!(saved || line))
+	if (!saved)
 		return (0);
-	l = line;
-	while (l[k])
+	while (line[k])
 		k++;
 	while (saved[i] && saved[i] != '\n')
 		i++;
+	if (!saved[i])
+	{
+		free(saved);
+		return (0);
+	}
 	tmp = ft_substr(saved, k + 1, (ft_strlen(saved) - i));
-	j = 0;
-	while (tmp[j])
-		j++;
-	tmp[j] = '\0';
+	k = 0;
+	while (tmp[k])
+		k++;
+	tmp[k] = '\0';
 	free(saved);
 	return (tmp);
 }
