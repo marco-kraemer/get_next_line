@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:19 by maraurel          #+#    #+#             */
-/*   Updated: 2021/03/03 09:53:39 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/03/03 11:19:45 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,17 @@ char	*save_line(char *saved)
 char	*new_saved(char *saved, char *line)
 {
 	char	*tmp;
+	char	*l;
 	int		i;
+	int		j;
 	int		k;
 
 	i = 0;
 	k = 0;
-	if (!saved)
+	if (!(saved))
 		return (0);
-	while (line[k])
+	l = line;
+	while (l[k])
 		k++;
 	while (saved[i] && saved[i] != '\n')
 		i++;
@@ -46,28 +49,42 @@ char	*new_saved(char *saved, char *line)
 		return (0);
 	}
 	tmp = ft_substr(saved, k + 1, (ft_strlen(saved) - i));
-	k = 0;
-	while (tmp[k])
-		k++;
-	tmp[k] = '\0';
+	j = 0;
+	while (tmp[j])
+		j++;
+	tmp[j] = '\0';
 	free(saved);
 	return (tmp);
 }
 
+int			has_return(char *str)
+{
+	int i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		get_next_line(int fd, char **line)
 {
-	static char	*saved;
-	char		*buf;
-	int			i;
+	char			*buf;
+	static char		*saved;
+	int				i;
 
-	if (fd < 0 || line == NULL)
+	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
 	if (!(buf = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	i = 1;
-	if (saved == NULL)
-		saved = ft_strdup(buf);
-	while (!(ft_strchr(saved, '\n')) && i != 0)
+	while (!ft_strchr(saved, '\n') && i != 0)
 	{
 		if ((i = read(fd, buf, BUFFER_SIZE)) == -1)
 		{
