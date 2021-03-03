@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:19 by maraurel          #+#    #+#             */
-/*   Updated: 2021/03/03 11:19:45 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/03/03 11:29:48 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*save_line(char *saved)
 char	*new_saved(char *saved, char *line)
 {
 	char	*tmp;
-	char	*l;
 	int		i;
 	int		j;
 	int		k;
@@ -38,8 +37,7 @@ char	*new_saved(char *saved, char *line)
 	k = 0;
 	if (!(saved))
 		return (0);
-	l = line;
-	while (l[k])
+	while (line[k])
 		k++;
 	while (saved[i] && saved[i] != '\n')
 		i++;
@@ -57,27 +55,11 @@ char	*new_saved(char *saved, char *line)
 	return (tmp);
 }
 
-int			has_return(char *str)
-{
-	int i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 int		get_next_line(int fd, char **line)
 {
-	char			*buf;
-	static char		*saved;
-	int				i;
+	char		*buf;
+	static char	*saved;
+	int			i;
 
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
