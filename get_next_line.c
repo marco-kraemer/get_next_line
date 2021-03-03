@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 19:20:19 by maraurel          #+#    #+#             */
-/*   Updated: 2021/03/03 08:51:26 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/03/03 09:53:39 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int		get_next_line(int fd, char **line)
 	char		*buf;
 	int			i;
 
+	if (fd < 0 || line == NULL)
+		return (-1);
 	if (!(buf = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	i = 1;
